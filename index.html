@@ -1472,15 +1472,6 @@ const DEMO_BLOGS = [
     author: "Casey Cofounder",
     excerpt: "Getting a 12M parameter SLM to run in real-time on a Raspberry Pi 4B without burning the board. Our journey from fp32 to int8 and what we lost — and gained — along the way.",
     content: "<p>The autonomy layer needs to make real-time decisions: waypoint replanning, obstacle classification, abort condition evaluation. We designed a small language model (12M parameters) specifically for this task. The problem: running fp32 inference on a Pi 4B took ~340ms per forward pass. That's not real-time — that's geological.</p><h3>The Quantisation Journey</h3><p>We started with ONNX Runtime's dynamic quantisation. Got to fp16 with minimal accuracy loss (~2% on our test scenarios). But 140ms was still too slow for the 10Hz update rate we needed from the autonomy layer.</p><p>Static <code>int8</code> quantisation with calibration data from simulated flight scenarios brought us to ~38ms. Acceptable. The accuracy drop was about 7% on edge cases — mostly around novel obstacle geometries the calibration set hadn't seen.</p><h3>The Trade-off</h3><p>We accepted the accuracy drop because the Behaviour Manager is the real safety net. Even if the SLM makes a questionable intent call, the constraints layer will reject anything outside safe flight envelopes. The SLM is advisory, not authoritative.</p>"
-  },
-  {
-    id: 4,
-    title: "Dana Joins: Sensor Fusion Overhaul",
-    tag: "Team Update",
-    date: "2026-01-15",
-    author: "Dana Newcomer",
-    excerpt: "I joined the SLYR project mid-redesign, inheriting a sensor stack that needed serious attention. Here's what I found, what I changed, and where the fusion pipeline stands today.",
-    content: "<p>Coming in fresh during a redesign phase is an interesting experience. You inherit architectural decisions you had no part in making, and you have to quickly figure out which ones are worth keeping.</p><h3>The Sensor Stack I Inherited</h3><p>The IMU selection (ICM-42688-P) was excellent — high sensitivity, low noise floor, 1kHz native sampling. The barometer (BMP388) was solid. What was missing was a coherent fusion strategy. The EKF implementation was treating IMU and baro data as independent, which was causing altitude estimation drift above 20m.</p><h3>What I Changed</h3><p>Tightly coupled the baro into the EKF vertical channel as a pseudo-measurement rather than a correction pass. The altitude drift dropped from ±1.2m at 30m altitude to under ±0.3m. Small change, big result. Currently working on integrating optical flow for GPS-denied low-altitude hover, which is going to be essential for the indoor test scenarios we have planned.</p>"
   }
 ];
 
