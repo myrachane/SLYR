@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>SLYR — Autonomous Avionics Research</title>
+<title>SLYR —</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500;600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
@@ -1451,9 +1451,9 @@ const DEMO_BLOGS = [
     title: "Why We Split the Compute: The Architecture Decision",
     tag: "Architecture",
     date: "2025-08-12",
-    author: "Alex Founder",
+    author: "Emtypyie",
     excerpt: "The single biggest design choice in SLYR — running two brains instead of one. Here's the full reasoning behind our dual-compute separation and why it makes safety structural.",
-    content: "<p>When we started SLYR, the tempting path was to run everything on a single powerful board. A Jetson Nano, maybe. One OS, one loop, one headache. But the more we dug into existing UAV incidents, the more we saw a pattern: tight coupling between AI inference and flight control is a silent killer.</p><h3>The Core Problem</h3><p>AI inference is variable-latency by nature. A transformer forward pass can spike from 8ms to 80ms depending on input complexity, thermal throttling, or memory pressure. If your PID controller is waiting on that output, you have a 80ms gap where the aircraft is flying on stale state. At 100km/h, that's over two metres of blind flight.</p><h3>Our Answer</h3><p>Separate the concerns at silicon level. The STM32H7 runs a <code>~1kHz</code> deterministic control loop. It doesn't care what the Pi is doing. It will never wait for it. The Pi sends intent signals; the STM32 decides whether to honour them after validation, clamping, and rate-limiting through the Behaviour Manager.</p><p>Safety isn't a software policy. It's a hardware constraint. That's the SLYR thesis.</p>"
+    content: "<p>When we started SLYR, the tempting path was to run everything on a single board. Basicaly ESP 32, maybe. One loop, one headache. But the more we dug into existing UAV incidents, the more we saw a pattern: tight coupling between AI inference and flight control is a silent killer.</p><h3>The Core Problem</h3><p>AI inference is variable-latency by nature. A transformer forward pass can spike from 8ms to 80ms depending on input complexity, thermal throttling, or memory pressure. If your PID controller is waiting on that output, you have a 80ms gap where the aircraft is flying on stale state. At 100km/h, that's over two metres of blind flight.</p><h3>Our Answer</h3><p>Separate the concerns at silicon level. The STM32H7 runs a <code>~1kHz</code> deterministic control loop. It doesn't care what the Pi is doing. It will never wait for it. The Pi sends intent signals; the STM32 decides whether to honour them after validation, clamping, and rate-limiting through the Behaviour Manager.</p><p>Safety isn't a software policy. It's a hardware constraint. That's the SLYR thesis.</p>"
   },
   {
     id: 2,
