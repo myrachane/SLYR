@@ -1,5 +1,5 @@
 # SLYR — System-Linked Runtime
-https://raw.githubusercontent.com/myrachane/slyR.cpp/refs/heads/main/ascii-art-text%20(1).png
+<img src="https://raw.githubusercontent.com/myrachane/slyR.cpp/refs/heads/main/ascii-art-text%20(1).png" alt="Alt Text" width="2000">
 
 SLYR is a modular avionics system for autonomous UAVs, built around a dual-compute architecture that separates real-time flight control from high-level autonomy.
 
